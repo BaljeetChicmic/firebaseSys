@@ -20,12 +20,15 @@ export class HttpInterceptors implements HttpInterceptor {
     if(token){
       request = request.clone({
         headers: request.headers.set('authorization', token).set('API-KEY',API_KEY)
+        
       });
+      console.log("if condition");
     }
     else{
       request=request.clone({
         headers:request.headers.set('API_KEY',API_KEY)
       })
+      console.log("else part");
     }
     return next.handle(request).pipe(map((event:HttpEvent<any>)=>{
       if(event instanceof HttpResponse){

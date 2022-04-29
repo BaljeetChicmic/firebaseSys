@@ -15,7 +15,8 @@ export class AuthGuard implements CanActivate {
     if(this.fservice.isLoggedIn){
       return true;
     }
-    this.router.navigateByUrl(`${PARENT_PATH.AUTH}/${PATH.AUTH.SIGNIN}`);
+   // this.router.navigateByUrl(`${PARENT_PATH.MAIN}/${PATH.MAIN.DASHBOARD}`);
+   this.router.navigateByUrl(`${PARENT_PATH.AUTH}/${PATH.AUTH.SIGNIN}`);
     return false;
   }  
 }
@@ -27,8 +28,9 @@ export class AuthLoginGuard implements CanActivate{
     private router:Router
   ){}
   canActivate(): boolean {
-    if(this.fservice.isLoggedIn){
+    if(this.fservice.isLoggedIn ){
       this.router.navigateByUrl(`${PARENT_PATH.MAIN}/${PATH.MAIN.DASHBOARD}`);
+      //this.router.navigateByUrl(`${PARENT_PATH.AUTH}/${PATH.AUTH.SIGNIN}`)
       return false;
     }
     return true;

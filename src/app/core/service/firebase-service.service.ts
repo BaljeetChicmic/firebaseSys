@@ -38,7 +38,7 @@ export class FirebaseServiceService {
 
   //to check whether user is logged in or not
   get isLoggedIn(){
-    return !!localStorage.getItem("loginDetail");
+    return !!localStorage.getItem("accessToken");
   }
 
   //logout

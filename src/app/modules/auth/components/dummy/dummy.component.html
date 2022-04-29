@@ -1,0 +1,22 @@
+<div class="container" style="text-align: center;">
+    <form [formGroup]="registerForm" (click)="submitData()">
+        <h2>Registration</h2>
+        <label for="name">Enter Username: </label>
+        <input type="text" id="username" name="username" formControlName="name" required>
+        <span style="color: red;" *ngIf="(submitted || controls.name.touched) && controls.name?.errors?.required">Enter Username</span><br><br>
+        <label for="mail">Enter Email-ID:</label>
+        <input type="email" id="email" placeholder="xyz@gmail.com" formControlName="email" required>
+        <span style="color: red;" *ngIf="(submitted || controls.email?.touched) && controls.email?.errors?.required">Enter Email-ID</span>
+        <span style="color: red;" *ngIf="(submitted || controls.email?.touched) && controls.email?.errors?.email">Enter Valid Email-ID</span><br><br>   
+        <label for="password">Enter Password: </label>
+        <input type="password" id="pass" name="pass" formControlName="password" required>
+        <span style="color:red;" *ngIf="(submitted || controls.password?.touched) && controls.password?.errors?.required">Enter Password</span>
+        <span style="color: red;" *ngIf="(submitted || controls.password?.touched) && controls.password?.errors?.pattern">Enter Valid Password</span><br><br>
+        <button [disabled]="!registerForm.valid">Register</button>
+        
+    </form>
+    
+</div>
+<div>
+    <app-table></app-table>
+</div>

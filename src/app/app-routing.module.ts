@@ -10,10 +10,13 @@ const routes: Routes = [
     path:'', redirectTo:PARENT_PATH.AUTH, pathMatch:'full'
   },
   {
-    path:PARENT_PATH.AUTH, loadChildren: () => import('./modules/auth/auth-module.module').then(m => m.AuthModuleModule)//,canActivate:[AuthLoginGuard]
+    path:PARENT_PATH.AUTH, loadChildren: () => import('./modules/auth/auth-module.module').then(m => m.AuthModuleModule),canActivate:[AuthLoginGuard]
   },
   {
-    path:PARENT_PATH.MAIN, loadChildren: () => import('./modules/main/main-module.module').then(m => m.MainModuleModule)//,canActivate:[AuthGuard],
+    path:PARENT_PATH.MAIN, loadChildren: () => import('./modules/main/main-module.module').then(m => m.MainModuleModule),canActivate:[AuthGuard],
+  },
+  {
+    path:PARENT_PATH.DUMMY, loadChildren: () => import('./modules/dummy.module').then(m => m.DummyModule)
   },
   {
     path:PARENT_PATH.WILDCARD, component:WildcardComponent

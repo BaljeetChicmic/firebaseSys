@@ -7,7 +7,8 @@ export const REGEX={
 export const PARENT_PATH={
     MAIN:'main',
     AUTH:'auth',
-    WILDCARD:'**'
+    WILDCARD:'**',
+    DUMMY:'dummy'
 }
 export const PATH={
     AUTH:{
@@ -18,5 +19,9 @@ export const PATH={
     },
     MAIN:{
         DASHBOARD:'dashboard'
+    },
+    DUMMY:{
+        TEST:'test'
     }
 }
+

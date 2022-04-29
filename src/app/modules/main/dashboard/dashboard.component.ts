@@ -18,9 +18,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  clickOn()
+  dummyTest()
   {
-    this.router.navigateByUrl(`${PARENT_PATH.AUTH}/${PATH.AUTH.SIGNIN}`);
+    this.router.navigateByUrl(`${PARENT_PATH.DUMMY}/${PATH.DUMMY.TEST}`);
   }
 
   logOut()

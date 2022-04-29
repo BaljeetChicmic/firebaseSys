@@ -1,0 +1,21 @@
+<p>Table component</p>
+<div>
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Email-ID</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <!--  *ngfor condition to fetch data-->
+            <tr *ngFor="let data of userData">
+                <td>{{data.name}}</td>
+                <td>{{data.email}}</td>
+                <td>
+                    <button class="btn btn-success" (click)="editUser(data)">Edit</button>
+                    <button class="btn btn-danger"(click)="deleteUser(data)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

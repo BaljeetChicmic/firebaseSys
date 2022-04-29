@@ -12,6 +12,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
 import { RouterModule, Routes } from '@angular/router';
 import { PATH } from 'src/app/common/constant';
+import { TableComponent } from './components/table/table.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,6 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     RouterModule.forChild(routes)
-  ]
+  ],
 })
 export class AuthModuleModule { }
