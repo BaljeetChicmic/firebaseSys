@@ -3,20 +3,22 @@
         <h2>Registration</h2>
         <label for="name">Enter Username: </label>
         <input type="text" id="username" name="username" formControlName="name" required>
-        <span style="color: red;" *ngIf="(submitted || controls.name.touched) && controls.name?.errors?.required">Enter Username</span><br><br>
+        <span style="color: red;" *ngIf="(submitted || registerForm.controls.name.touched) && registerForm.controls.name?.errors?.required">Enter Username</span><br><br>
         <label for="mail">Enter Email-ID:</label>
         <input type="email" id="email" placeholder="xyz@gmail.com" formControlName="email" required>
-        <span style="color: red;" *ngIf="(submitted || controls.email?.touched) && controls.email?.errors?.required">Enter Email-ID</span>
-        <span style="color: red;" *ngIf="(submitted || controls.email?.touched) && controls.email?.errors?.email">Enter Valid Email-ID</span><br><br>   
+        <span style="color: red;" *ngIf="(submitted || registerForm.controls.email?.touched) && registerForm.controls.email?.errors?.required">Enter Email-ID</span>
+        <span style="color: red;" *ngIf="(submitted || registerForm.controls.email?.touched) && registerForm.controls.email?.errors?.email">Enter Valid Email-ID</span><br><br>   
         <label for="password">Enter Password: </label>
         <input type="password" id="pass" name="pass" formControlName="password" required>
-        <span style="color:red;" *ngIf="(submitted || controls.password?.touched) && controls.password?.errors?.required">Enter Password</span>
-        <span style="color: red;" *ngIf="(submitted || controls.password?.touched) && controls.password?.errors?.pattern">Enter Valid Password</span><br><br>
-        <button [disabled]="!registerForm.valid">Register</button>
-        
+        <span style="color:red;" *ngIf="(submitted || registerForm.controls.password?.touched) && registerForm.controls.password?.errors?.required">Enter Password</span>
+        <span style="color: red;" *ngIf="(submitted || registerForm.controls.password?.touched) && registerForm.controls.password?.errors?.pattern">Enter Valid Password</span><br><br>
+        <!-- <button [disabled]="!registerForm.valid">{{'rowIndex'?'Update':'Register'}}</button> -->
+        <div *ngIf="rowIndex || rowIndex == 0; else register">
+            <button [disabled]="!registerForm.valid">Update</button>
+        </div>
+        <ng-template #register><button [disabled]="!registerForm.valid">Register</button></ng-template>  
     </form>
-    
 </div>
 <div>
-    <app-table></app-table>
+    <app-table (tableData)="getData($event)"></app-table>
 </div>

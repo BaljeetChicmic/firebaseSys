@@ -1,55 +1,68 @@
-import { AfterViewInit, Component, OnInit, Output, ViewChild,EventEmitter } from "@angular/core";
-import { FormBuilder, NgForm, Validators } from "@angular/forms";
+import { Component, OnInit} from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
 import { REGEX } from "src/app/common/constant";
 import { dummyService } from "src/app/core/service/dummy.service";
-import { TableComponent } from "../table/table.component";
 @Component({
-    selector:'app-dummy',
-    templateUrl:'./dummy.component.html', 
-    styleUrls:['./dummy.component.scss']
- 
+    selector: 'app-dummy',
+    templateUrl: './dummy.component.html',
+    styleUrls: ['./dummy.component.scss']
+
 })
 
-export class DummyComponent implements AfterViewInit{
-    @ViewChild(TableComponent)
-    data!: { getUser: any; };
-    @Output() formData=new EventEmitter<any>();
-    registerForm:any;
-    submitted:boolean=false;
-    user:any=[];
+export class DummyComponent implements OnInit {
+    registerForm: any;
+    submitted: boolean = false;
+    user: any = [];
+    userDetail:any;
+    createMode:boolean=false;
+    editMode:boolean=false;
+    rowIndex:number | undefined;
     constructor(
-        private form:FormBuilder,
-        private service:dummyService){}
-    ngAfterViewInit(): void {
-        this.user=this.data.getUser;
-    }
+        private form: FormBuilder,
+        private service: dummyService
+    ) { }
 
     ngOnInit(): void {
         this.initRegisterForm();
-        
     }
-    
-    initRegisterForm(){
-        this.registerForm=this.form.group({
-            name:['',[Validators.required]],
-            email:['',[Validators.required,Validators.email]],
-            password:['',[Validators.required,Validators.pattern(REGEX.PASSWORD)]]
+
+    initRegisterForm() {
+        this.registerForm = this.form.group({
+            name: ['', [Validators.required]],
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required, Validators.pattern(REGEX.PASSWORD)]]
         })
     }
 
-    get controls(){
-        return this.registerForm.controls;
-    }
-
-    submitData(){
-        this.submitted=true;
-        if(this.registerForm.valid){
-            this.service.storeData(this.registerForm.value);//get data of signle user
-            //console.log("user-->",this.registerForm.value);
-            console.log(this.formData.emit(this.registerForm));
-            this.registerForm.reset();
-            console.log("---->u",this.user=this.data.getUser);
+    submitData() {
+        this.submitted = true;
+        this.createMode = true;
+        if (this.registerForm.valid) {
+            if(this.rowIndex || this.rowIndex == 0){
+                console.log("Edit user-->",this.registerForm.value);
+                this.service.updateUser(this.registerForm.value,this.rowIndex);
+                this.registerForm.reset();
+                this.rowIndex=undefined;
+            }
+            else{
+                console.log("add user-->",this.registerForm.value);
+                this.service.storeData(this.registerForm.value);
+                this.registerForm.reset();
+            }
+            
         }
     }
-    
+    getData($event:any){
+
+        this.userDetail = $event;
+        this.rowIndex=this.userDetail.index;
+        // console.log("dummy component-->",this.userDetail);
+        this.registerForm.controls['name'].patchValue(this.userDetail.user.name);
+        this.registerForm.controls['email'].patchValue(this.userDetail.user.email);
+        // console.log("index-->",this.userDetail.index);
+
+    }
 }
+// Object.keys(this.registerForm.controls).forEach(key=>{
+//     this.registerForm.controls[key].patchValue(this.userDetail[key]);
+// })

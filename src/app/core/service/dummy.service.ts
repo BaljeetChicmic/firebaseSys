@@ -4,22 +4,31 @@ import { Injectable } from "@angular/core";
     providedIn:'root'
 })
 export class dummyService{
-    dataStore:Array<userData>=[];
+    dataStore:Array<userData>=[{
+        name:'xyz',
+        email:'xyz@gmail.com'
+    },
+    {
+        name:'abc',
+        email:'abc@gmail.com'
+    }];
+    rowindex:number=-1;
     constructor(){}
-
+ 
     storeData(data:any){
         this.dataStore.push(data);
-        console.log("user data----->",this.dataStore);
     }
-    deleteUser(index:any){
+
+    deleteUser(data:any,index:any){
         this.dataStore.splice(index,1);
     }
-    editUser(data:any,index:any){
-        
+    
+    updateUser(data:userData,index:number){
+        this.dataStore[index]=data;
     }
 }
 
 interface userData{
-  username:string,
-  email:string
+    name:string,
+    email:string
 }
